@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С днём рождения! 🎉</title>
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pink-soft: #FFE4EC;
+    --pink: #FF8FB1;
+    --pink-deep: #E75480;
+    --pink-hot: #FF1493;
+    --gold: #C9A66B;
+    --leopard-dark: #6B4423;
+    --cream: #FFF9FB;
+    --text: #4A2C3A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* === ЛЕОПАРДОВЫЙ ФОН (пятна) === */
+  .leopard-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    opacity: 0.08;
+    background-color: #fff;
+    background-image:
+      radial-gradient(circle at 20% 30%, #6B4423 0 6px, transparent 7px),
+      radial-gradient(circle at 20% 30%, #6B4423 0 14px, transparent 15px),
+      radial-gradient(circle at 70% 15%, #6B4423 0 8px, transparent 9px),
+      radial-gradient(circle at 70% 15%, #6B4423 0 16px, transparent 17px),
+      radial-gradient(circle at 45% 70%, #6B4423 0 7px, transparent 8px),
+      radial-gradient(circle at 45% 70%, #6B4423 0 15px, transparent 16px),
+      radial-gradient(circle at 85% 60%, #6B4423 0 9px, transparent 10px),
+      radial-gradient(circle at 85% 60%, #6B4423 0 17px, transparent 18px),
+      radial-gradient(circle at 10% 85%, #6B4423 0 6px, transparent 7px),
+      radial-gradient(circle at 10% 85%, #6B4423 0 14px, transparent 15px);
+    background-size: 400px 400px;
+    animation: leopardShift 60s linear infinite;
+  }
+  @keyframes leopardShift {
+    0% { background-position: 0 0; }
+    100% { background-position: 400px 400px; }
+  }
+
+  /* === ГЕРОЙ === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+    background: linear-gradient(135deg, #FFE4EC 0%, #FFF9FB 50%, #FFD6E5 100%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255,143,177,0.4), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(231,84,128,0.3), transparent 40%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 8px 22px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.7);
+    border: 2px dashed var(--pink);
+    color: var(--pink-deep);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    animation: fadeUp 1s ease both;
+  }
+
+  .name {
+    font-family: 'Marck Script', cursive;
+    font-size: clamp(3rem, 12vw, 7rem);
+    color: var(--pink-deep);
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 3px 3px 0 rgba(255,255,255,0.8), 6px 6px 20px rgba(231,84,128,0.3);
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  .age {
+    font-size: clamp(5rem, 20vw, 12rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--pink-hot), var(--gold), var(--pink-hot));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+    animation: fadeUp 1s ease 0.4s both, shine 4s ease infinite;
+    position: relative;
+  }
+
+  @keyframes shine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .age-sub {
+    font-family: 'Marck Script', cursive;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    color: var(--pink-deep);
+    margin-top: 10px;
+    animation: fadeUp 1s ease 0.6s both;
+  }
+
+  .hero-text {
+    max-width: 600px;
+    margin-top: 25px;
+    font-size: 1.1rem;
+    color: #7a5566;
+    animation: fadeUp 1s ease 0.8s both;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    font-size: 2rem;
+    color: var(--pink);
+    animation: bounce 2s infinite;
+    cursor: pointer;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(15px); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === СЕКЦИИ === */
+  section {
+    padding: 80px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-family: 'Marck Script', cursive;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    text-align: center;
+    color: var(--pink-deep);
+    margin-bottom: 15px;
+  }
+
+  .section-sub {
+    text-align: center;
+    color: #9a7585;
+    margin-bottom: 50px;
+    font-size: 1rem;
+  }
+
+  /* === КАРТОЧКИ ФАКТОВ === */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 25px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(231,84,128,0.12);
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--pink-soft);
+    opacity: 0.5;
+    transition: transform 0.4s;
+  }
+
+  .card:hover {
+    transform: translateY(-10px) rotate(-1deg);
+    border-color: var(--pink);
+    box-shadow: 0 20px 40px rgba(231,84,128,0.25);
+  }
+
+  .card:hover::before { transform: scale(1.5); }
+
+  .card-emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-title {
+    font-weight: 700;
+    color: var(--pink-deep);
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: #8a6a78;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* === ПОЗДРАВЛЕНИЕ === */
+  .letter {
+    background: linear-gradient(135deg, #fff 0%, #FFF0F5 100%);
+    border-radius: 30px;
+    padding: 50px 40px;
+    box-shadow: 0 15px 40px rgba(231,84,128,0.15);
+    border: 3px dashed var(--pink);
+    position: relative;
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .letter::before {
+    content: '💌';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.5rem;
+    background: #fff;
+    padding: 0 15px;
+    border-radius: 50%;
+  }
+
+  .letter p {
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+    color: #5a3d4a;
+  }
+
+  .letter .signature {
+    font-family: 'Marck Script', cursive;
+    font-size: 1.8rem;
+    color: var(--pink-deep);
+    text-align: right;
+    margin-top: 25px;
+  }
+
+  /* === КНОПКА СЮРПРИЗ === */
+  .surprise-wrap {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .btn {
+    background: linear-gradient(135deg, var(--pink), var(--pink-deep));
+    color: #fff;
+    border: none;
+    padding: 18px 45px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 10px 25px rgba(231,84,128,0.4);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(231,84,128,0.6);
+  }
+
+  .btn:active { transform: scale(0.98); }
+
+  /* === ФУТЕР === */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #b58a9c;
+    font-size: 0.9rem;
+  }
+
+  footer .hearts {
+    color: var(--pink-hot);
+    font-size: 1.2rem;
+  }
+
+  /* === КОНФЕТТИ === */
+  .confetti {
+    position: fixed;
+    width: 10px;
+    height: 20px;
+    top: -20px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+
+  /* Плавающие сердечки на фоне героя */
+  .float-heart {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    animation: floatUp linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) rotate(0); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+  }
+
+  @media (max-width: 600px) {
+    .letter { padding: 40px 25px; }
+    section { padding: 60px 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="leopard-bg"></div>
+
+<!-- ГЕРОЙ -->
+<div class="hero">
+  <span class="badge">✨ 20 лет ✨</span>
+  <h1 class="name">С днём рождения!</h1>
+  <div class="age">20</div>
+  <div class="age-sub">Прекрасная пора 🌸</div>
+  <p class="hero-text">
+    Целых двадцать лет ты делаешь этот мир ярче, добрее и немного пушистее.
+    Этот сайт — маленький подарок с большим теплом.
+  </p>
+  <div class="scroll-hint" onclick="document.querySelector('#facts').scrollIntoView()">👇</div>
+</div>
+
+<!-- ФАКТЫ -->
+<section id="facts">
+  <h2 class="section-title">Немного о тебе</h2>
+  <p class="section-sub">Всё, за что мы тебя обожаем 💕</p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="card-emoji">🐆</span>
+      <div class="card-title">Леопардовая душа</div>
+      <div class="card-text">Грациозная, смелая, с характером. И пятнышки тебе невероятно идут!</div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🐱</span>
+      <div class="card-title">Мама кошки</div>
+      <div class="card-text">Твой пушистый хвостик знает: лучшей мамы не найти. Мурлыкает благодарно.</div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🎓</span>
+      <div class="card-title">Будущий педагог</div>
+      <div class="card-text">Учишься на педагога — а значит, впереди много счастливых детских глаз.</div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🧸</span>
+      <div class="card-title">Няня от бога</div>
+      <div class="card-text">Работаешь няней и делаешь так, чтобы малышам было тепло и весело.</div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🌍</span>
+      <div class="card-title">Путешественница</div>
+      <div class="card-text">Твои чемоданы всегда почти собраны, а глаза — полны новых горизонтов.</div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">💗</span>
+      <div class="card-title">Розовый — твой цвет</div>
+      <div class="card-text">Нежный, тёплый, женственный — как и ты сама. Идеальное совпадение!</div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">🏠</span>
+      <div class="card-title">Железнодорожный</div>
+      <div class="card-text">Твой город знает твой смех, шаги и утренний кофе. И очень тобой гордится.</div>
+    </div>
+    <div class="card">
+      <span class="card-emoji">✨</span>
+      <div class="card-title">160 см чистого солнца</div>
+      <div class="card-text">Компактная, но как же много в тебе света, тепла и энергии!</div>
+    </div>
+  </div>
+</section>
+
+<!-- ПОЗДРАВЛЕНИЕ -->
+<section>
+  <h2 class="section-title">Тёплые слова</h2>
+  <p class="section-sub">От всего сердца, без шаблонов</p>
+
+  <div class="letter">
+    <p>Дорогая наша, любимая Виктория! 🎂</p>
+    <p>
+      Сегодня тебе 20. Это удивительный возраст: ты уже взрослая,
+      но в душе — всё та же звонкая, весёлая, любознательная девочка,
+      которая умеет радоваться мелочам и зажигать всех вокруг.
+    </p>
+    <p>
+      Ты выбрала путь педагога — и это по-настоящему твоё. В тебе столько
+      тепла, терпения и доброты, что хватит на сотни детей. А твои
+      путешествия — это ещё сотни городов, которые обязательно
+      влюбятся в тебя так же, как мы.
+    </p>
+    <p>
+      Пусть Бонечка громко мурчит и всегда тебя ждёт (однажды - без сюрпризов в коридоре). Пусть розовый цвет
+      всегда поднимает настроение. Пусть леопардовые вещи сидят идеально.
+      И пусть Париж станет следующей точкой на карте твоих приключений (друзья говорят, там классно, но только в центре 😅. Шампань тоже посети!).
+    </p>
+    <p>
+      И помни: такая маленькая и лёгкая ты умудряешься вмещать
+      невероятно огромное, взрослое сердце 💖
+    </p>
+    <p>Мы тебя очень-очень любим. С днём рождения!</p>
+    <div class="signature">С любовью ✨</div>
+  </div>
+</section>
+
+<!-- СЮРПРИЗ -->
+<div class="surprise-wrap">
+  <button class="btn" onclick="throwConfetti()">🎉 Нажми меня! 🎉</button>
+</div>
+
+<footer>
+  <div class="hearts">💗 🐆 🐱 🌍 🎓 💗</div>
+  <p style="margin-top:10px">Сделано с любовью специально для тебя</p>
+  <p style="margin-top:5px; font-size:0.8rem; opacity:0.7">© 20 лет — лучшее только начинается</p>
+</footer>
+
+<script>
+  // === Конфетти ===
+  const colors = ['#FF1493', '#FF8FB1', '#C9A66B', '#E75480', '#FFD6E5', '#FFF0F5'];
+
+  function throwConfetti() {
+    for (let i = 0; i < 80; i++) {
+      setTimeout(() => {
+        const c = document.createElement('div');
+        c.className = 'confetti';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.background = colors[Math.floor(Math.random() * colors.length)];
+        c.style.width = (Math.random() * 8 + 6) + 'px';
+        c.style.height = (Math.random() * 12 + 8) + 'px';
+        c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        const duration = Math.random() * 2 + 2;
+        c.style.animationDuration = duration + 's';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), duration * 1000);
+      }, i * 25);
+    }
+  }
+
+  // Авто-конфетти при загрузке
+  window.addEventListener('load', () => {
+    setTimeout(throwConfetti, 800);
+  });
+
+  // === Плавающие сердечки в герое ===
+  const hero = document.querySelector('.hero');
+  const hearts = ['💗', '🐆', '✨', '🌸', '💕', '🎀'];
+  for (let i = 0; i < 12; i++) {
+    const h = document.createElement('div');
+    h.className = 'float-heart';
+    h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.animationDuration = (Math.random() * 8 + 8) + 's';
+    h.style.animationDelay = (Math.random() * 10) + 's';
+    h.style.fontSize = (Math.random() * 15 + 15) + 'px';
+    hero.appendChild(h);
+  }
+
+  // === Появление карточек при скролле ===
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '0';
+        e.target.style.transform = 'translateY(30px)';
+        setTimeout(() => {
+          e.target.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }, i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.card, .letter').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
